@@ -7,8 +7,8 @@
 :root {
   color-scheme: dark;
   font-family: 'IBM Plex Mono', monospace;
-  background-color: #05080a;
-  color: #c5ffc8;
+  background-color: #060908;
+  color: #cddfcf;
 }
 
 html {
@@ -19,9 +19,9 @@ body {
   margin: 0;
   min-height: 100vh;
   background:
-    radial-gradient(circle at top, rgba(44, 251, 114, 0.08), transparent 38%),
-    radial-gradient(circle at bottom right, rgba(255, 204, 102, 0.08), transparent 24%),
-    #05080a;
+    radial-gradient(circle at top, rgba(126, 231, 135, 0.05), transparent 42%),
+    radial-gradient(circle at bottom right, rgba(216, 178, 106, 0.05), transparent 28%),
+    linear-gradient(180deg, rgba(8, 13, 10, 0.98), rgba(6, 9, 8, 1));
 }
 
 body::before {
@@ -31,12 +31,12 @@ body::before {
   pointer-events: none;
   background: repeating-linear-gradient(
     to bottom,
-    rgba(197, 255, 200, 0.03) 0,
-    rgba(197, 255, 200, 0.03) 1px,
+    rgba(205, 223, 207, 0.025) 0,
+    rgba(205, 223, 207, 0.025) 1px,
     transparent 1px,
     transparent 3px
   );
-  opacity: 0.4;
+  opacity: 0.18;
 }
 
 body::after {
@@ -44,10 +44,10 @@ body::after {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  background-image: radial-gradient(rgba(44, 251, 114, 0.16) 0.5px, transparent 0.5px);
-  background-size: 12px 12px;
-  mask-image: radial-gradient(circle at center, black, transparent 75%);
-  opacity: 0.12;
+  background:
+    radial-gradient(circle at 50% 10%, rgba(255, 255, 255, 0.045), transparent 30%),
+    radial-gradient(circle at center, rgba(126, 231, 135, 0.03), transparent 60%);
+  opacity: 0.55;
 }
 
 a {
@@ -67,8 +67,8 @@ select {
 }
 
 *::selection {
-  background: rgba(44, 251, 114, 0.25);
-  color: #e8ffe5;
+  background: rgba(126, 231, 135, 0.18);
+  color: #f4fff3;
 }
 
 *::-webkit-scrollbar {
@@ -76,12 +76,12 @@ select {
 }
 
 *::-webkit-scrollbar-track {
-  background: rgba(9, 17, 13, 0.85);
+  background: rgba(11, 18, 15, 0.9);
 }
 
 *::-webkit-scrollbar-thumb {
-  border: 2px solid rgba(9, 17, 13, 0.85);
-  background: rgba(44, 251, 114, 0.25);
+  border: 2px solid rgba(11, 18, 15, 0.9);
+  background: rgba(141, 169, 147, 0.32);
 }
 
 @keyframes blink {
@@ -103,21 +103,34 @@ select {
 }
 
 @layer components {
+  .terminal-shell {
+    @apply overflow-hidden border shadow-terminal;
+    border-color: rgba(48, 71, 58, 0.88);
+    background:
+      linear-gradient(180deg, rgba(12, 20, 16, 0.98), rgba(8, 13, 11, 0.96)),
+      rgba(6, 9, 8, 0.98);
+  }
+
   .terminal-window {
-    @apply border shadow-terminal backdrop-blur-sm;
-    border-color: #1d4d2a;
-    background-color: rgba(9, 17, 13, 0.9);
+    @apply border;
+    border-color: rgba(48, 71, 58, 0.75);
+    background:
+      linear-gradient(180deg, rgba(14, 22, 17, 0.9), rgba(10, 16, 13, 0.84)),
+      rgba(11, 18, 15, 0.88);
   }
 
   .terminal-titlebar {
     @apply flex items-center justify-between gap-4 border-b px-4 py-3;
-    border-color: #1d4d2a;
-    background-color: rgba(13, 24, 17, 0.95);
+    border-color: rgba(48, 71, 58, 0.75);
+    background-color: rgba(16, 25, 20, 0.94);
   }
 
   .terminal-panel {
-    @apply border bg-black/20 px-4 py-4;
-    border-color: rgba(29, 77, 42, 0.7);
+    @apply border px-4 py-4;
+    border-color: rgba(48, 71, 58, 0.68);
+    background:
+      linear-gradient(180deg, rgba(15, 23, 18, 0.76), rgba(10, 15, 13, 0.68)),
+      rgba(0, 0, 0, 0.12);
   }
 
   .terminal-label {
@@ -126,67 +139,79 @@ select {
 
   .terminal-badge {
     @apply inline-flex items-center rounded-sm border px-2 py-1 text-[10px] uppercase tracking-[0.28em] text-terminal-accent;
-    border-color: rgba(44, 251, 114, 0.4);
-    background-color: rgba(44, 251, 114, 0.1);
+    border-color: rgba(126, 231, 135, 0.28);
+    background-color: rgba(126, 231, 135, 0.08);
   }
 
   .terminal-chip {
-    @apply inline-flex rounded-sm border border-terminal-border bg-black/20 px-3 py-2 text-xs uppercase tracking-[0.24em] text-terminal-text;
+    @apply inline-flex rounded-sm border border-terminal-border px-3 py-2 text-xs uppercase tracking-[0.24em] text-terminal-text;
+    background-color: rgba(17, 26, 21, 0.8);
   }
 
   .terminal-button {
     @apply inline-flex items-center justify-center border px-4 py-3 text-xs uppercase tracking-[0.3em] text-terminal-text transition duration-200 hover:-translate-y-0.5 hover:text-terminal-accent;
-    border-color: #2cfb72;
-    background-color: rgba(44, 251, 114, 0.12);
+    border-color: rgba(126, 231, 135, 0.45);
+    background-color: rgba(126, 231, 135, 0.08);
   }
 
   .terminal-button-muted {
-    @apply bg-black/10 text-terminal-muted hover:text-terminal-text;
-    border-color: #1d4d2a;
+    @apply text-terminal-muted hover:text-terminal-text;
+    border-color: rgba(48, 71, 58, 0.75);
+    background-color: rgba(17, 26, 21, 0.42);
   }
 
   .terminal-inline-button {
-    @apply inline-flex items-center border bg-black/20 px-3 py-2 text-[11px] uppercase tracking-[0.28em] text-terminal-muted transition duration-200 hover:text-terminal-accent;
-    border-color: #1d4d2a;
+    @apply inline-flex items-center border px-3 py-2 text-[11px] uppercase tracking-[0.28em] text-terminal-muted transition duration-200 hover:text-terminal-accent;
+    border-color: rgba(48, 71, 58, 0.75);
+    background-color: rgba(17, 26, 21, 0.58);
   }
 
   .menu-link {
-    @apply inline-flex border border-transparent px-3 py-2 text-xs uppercase tracking-[0.3em] text-terminal-muted transition duration-200 hover:border-terminal-border hover:bg-black/10 hover:text-terminal-text;
+    @apply inline-flex border border-b-0 px-4 py-2 text-xs uppercase tracking-[0.3em] text-terminal-muted transition duration-200 hover:text-terminal-text;
+    border-color: rgba(48, 71, 58, 0.65);
+    background-color: rgba(17, 26, 21, 0.45);
   }
 
   .menu-link-active {
     @apply text-terminal-accent;
-    border-color: rgba(44, 251, 114, 0.4);
-    background-color: rgba(44, 251, 114, 0.1);
+    border-color: rgba(126, 231, 135, 0.32);
+    background-color: rgba(126, 231, 135, 0.14);
   }
 
   .status-pill {
     @apply inline-flex items-center gap-2 border px-3 py-2;
-    border-color: #1d4d2a;
+    border-color: rgba(48, 71, 58, 0.7);
+    background-color: rgba(17, 26, 21, 0.42);
   }
 
   .status-dot {
     @apply h-2 w-2 rounded-full bg-terminal-accent;
-    box-shadow: 0 0 12px rgba(44, 251, 114, 0.8);
+    box-shadow: 0 0 8px rgba(126, 231, 135, 0.45);
   }
 
   .window-dot {
     @apply h-2.5 w-2.5 rounded-full;
+    box-shadow: 0 0 10px rgba(229, 115, 115, 0.22);
   }
 
   .terminal-button:hover,
   .terminal-button:focus-visible {
-    background-color: rgba(44, 251, 114, 0.18);
+    background-color: rgba(126, 231, 135, 0.14);
   }
 
   .terminal-button-muted:hover,
   .terminal-button-muted:focus-visible {
-    border-color: rgba(44, 251, 114, 0.5);
+    border-color: rgba(126, 231, 135, 0.34);
   }
 
   .terminal-inline-button:hover,
   .terminal-inline-button:focus-visible {
-    border-color: rgba(44, 251, 114, 0.5);
+    border-color: rgba(126, 231, 135, 0.34);
+  }
+
+  .menu-link:hover,
+  .menu-link:focus-visible {
+    background-color: rgba(22, 34, 27, 0.75);
   }
 
   .type-caret::after {

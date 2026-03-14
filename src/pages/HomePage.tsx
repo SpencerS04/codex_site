@@ -6,10 +6,10 @@ import { focusAreas, projects, siteMeta, skillMatrix } from '../data/site';
 
 export default function HomePage() {
   return (
-    <div className="space-y-6">
+    <div className="space-y-5">
       <Reveal>
         <TerminalFrame title="boot.sequence" badge="main">
-          <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr]">
+          <div className="grid gap-8 xl:grid-cols-[1.15fr_0.85fr]">
             <div className="space-y-5">
               <p className="terminal-label">$ init portfolio --profile engineering</p>
               <h1 className="max-w-3xl font-display text-5xl uppercase leading-none tracking-[0.12em] text-terminal-text sm:text-6xl">
@@ -28,10 +28,10 @@ export default function HomePage() {
               </div>
             </div>
 
-            <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-1">
+            <div className="grid gap-4 sm:grid-cols-3 xl:grid-cols-1">
               <div className="terminal-panel">
                 <p className="terminal-label">Domain</p>
-                <p className="mt-3 font-display text-3xl uppercase tracking-[0.16em] text-terminal-accent">
+                <p className="mt-3 font-display text-3xl uppercase tracking-[0.16em] text-terminal-text">
                   {siteMeta.domain}
                 </p>
               </div>
@@ -52,40 +52,39 @@ export default function HomePage() {
         </TerminalFrame>
       </Reveal>
 
-      <div className="grid gap-6 lg:grid-cols-3">
-        {focusAreas.map((item, index) => (
-          <Reveal key={item.title} delay={index * 100}>
-            <TerminalFrame title={`focus.${index + 1}`} badge="signal" className="h-full">
-              <h2 className="text-lg uppercase tracking-[0.18em] text-terminal-text">{item.title}</h2>
-              <p className="mt-4 text-sm leading-7 text-terminal-muted">{item.copy}</p>
-            </TerminalFrame>
-          </Reveal>
-        ))}
-      </div>
+      <Reveal delay={90}>
+        <TerminalFrame title="focus.map" badge="systems">
+          <div className="grid gap-4 lg:grid-cols-3">
+            {focusAreas.map((item, index) => (
+              <div key={item.title} className="terminal-panel">
+                <p className="terminal-label">sector.{index + 1}</p>
+                <h2 className="mt-3 text-lg uppercase tracking-[0.18em] text-terminal-text">{item.title}</h2>
+                <p className="mt-4 text-sm leading-7 text-terminal-muted">{item.copy}</p>
+              </div>
+            ))}
+          </div>
+        </TerminalFrame>
+      </Reveal>
 
-      <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
-        <Reveal>
-          <TerminalFrame title="operator.log" badge="about">
+      <Reveal delay={160}>
+        <TerminalFrame title="profile.snapshot" badge="operator">
+          <div className="grid gap-6 lg:grid-cols-[0.95fr_1.05fr]">
             <div className="space-y-4 text-sm leading-8 text-terminal-muted sm:text-base">
               <p>
-                This homepage is styled like a stripped-down terminal, but the real objective is clarity:
-                communicate technical range, show how projects fit together, and make it obvious how to get in touch.
+                This homepage keeps the terminal language, but the point is still clarity: show how the work fits
+                together, what kinds of systems I build, and where to go next.
               </p>
               <p>
-                The layout is intentionally modular so new work, writing, certifications, and project detail pages
-                can be layered in without throwing away the visual system.
+                The site is structured like one continuous workspace so new case studies, writing, and supporting
+                details can slot in without turning the layout into a pile of disconnected panes.
               </p>
             </div>
-          </TerminalFrame>
-        </Reveal>
 
-        <Reveal delay={120}>
-          <TerminalFrame title="stack.snapshot" badge="matrix">
-            <div className="space-y-5">
+            <div className="grid gap-4 md:grid-cols-2">
               {skillMatrix.map((group) => (
-                <div key={group.label}>
+                <div key={group.label} className="terminal-panel">
                   <p className="terminal-label">{group.label}</p>
-                  <div className="mt-3 flex flex-wrap gap-2">
+                  <div className="mt-4 flex flex-wrap gap-2">
                     {group.values.map((value) => (
                       <span key={value} className="terminal-chip">
                         {value}
@@ -95,9 +94,9 @@ export default function HomePage() {
                 </div>
               ))}
             </div>
-          </TerminalFrame>
-        </Reveal>
-      </div>
+          </div>
+        </TerminalFrame>
+      </Reveal>
     </div>
   );
 }

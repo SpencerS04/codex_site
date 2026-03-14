@@ -9,11 +9,23 @@ const navItems = [
   { label: 'Contact', to: '/contact' },
 ];
 
-const pageLabels: Record<string, string> = {
-  '/': 'home',
-  '/about': 'about',
-  '/projects': 'projects',
-  '/contact': 'contact',
+const pageMeta: Record<string, { label: string; summary: string }> = {
+  '/': {
+    label: 'home',
+    summary: 'Overview of focus areas, current stack, and the core direction of the portfolio.',
+  },
+  '/about': {
+    label: 'about',
+    summary: 'Background, working principles, and the kinds of systems and interfaces I prefer to build.',
+  },
+  '/projects': {
+    label: 'projects',
+    summary: 'A browsable project index with one active case study open inside the workspace at a time.',
+  },
+  '/contact': {
+    label: 'contact',
+    summary: 'Direct contact paths, preferred message format, and the fastest way to start a useful conversation.',
+  },
 };
 
 function formatDate() {
@@ -26,93 +38,100 @@ function formatDate() {
 
 export default function Layout({ children }: PropsWithChildren) {
   const location = useLocation();
+  const currentPage = pageMeta[location.pathname] ?? {
+    label: 'session',
+    summary: 'Portfolio workspace',
+  };
 
   return (
     <div className="min-h-screen bg-terminal-bg px-4 py-5 text-terminal-text sm:px-6 lg:px-8">
-      <div className="mx-auto flex max-w-7xl flex-col gap-6">
-        <header className="terminal-window">
-          <div className="terminal-titlebar">
-            <div className="flex items-center gap-2">
-              <span className="window-dot bg-terminal-amber" />
-              <span className="window-dot bg-terminal-accent" />
-              <span className="window-dot bg-terminal-muted" />
-            </div>
-            <span className="text-[11px] uppercase tracking-[0.34em] text-terminal-muted">
-              {siteMeta.domain}
-            </span>
-          </div>
-          <div className="grid gap-5 px-4 py-5 lg:grid-cols-[1.2fr_0.8fr] lg:px-6">
-            <div className="space-y-3">
-              <p className="font-display text-4xl uppercase tracking-[0.18em] text-terminal-accent sm:text-5xl">
-                {siteMeta.name}
-              </p>
-              <p className="max-w-2xl text-sm leading-7 text-terminal-muted sm:text-base">
-                {siteMeta.title}. Retro terminal shell outside, modern project presentation underneath.
-              </p>
-            </div>
-            <div className="flex flex-col items-start gap-4 lg:items-end">
-              <div className="flex flex-wrap gap-2">
-                {navItems.map((item) => (
-                  <NavLink
-                    key={item.to}
-                    to={item.to}
-                    className={({ isActive }) =>
-                      isActive ? 'menu-link menu-link-active' : 'menu-link'
-                    }
-                    end={item.to === '/'}
-                  >
-                    {item.label}
-                  </NavLink>
-                ))}
-              </div>
-              <div className="flex flex-wrap items-center gap-3 text-[11px] uppercase tracking-[0.28em] text-terminal-muted">
-                <span className="status-pill">
-                  <span className="status-dot" />
-                  {siteMeta.status}
-                </span>
-                <span>{formatDate()}</span>
-                <span>{pageLabels[location.pathname] ?? 'session'}</span>
-              </div>
-            </div>
-          </div>
-        </header>
-
-        <div className="grid gap-6 lg:grid-cols-[260px_minmax(0,1fr)]">
-          <aside className="terminal-window hidden h-fit lg:block">
-            <div className="terminal-titlebar">
+      <div className="mx-auto max-w-7xl">
+        <section className="terminal-shell">
+          <div className="terminal-titlebar px-5 py-4 sm:px-6">
+            <div className="flex items-center gap-3">
+              <span className="window-dot bg-terminal-signal" />
               <span className="text-[11px] uppercase tracking-[0.34em] text-terminal-muted">
-                system-status
+                terminal://{siteMeta.domain}
               </span>
             </div>
-            <div className="space-y-6 px-5 py-5 text-sm">
-              <section className="space-y-2">
-                <p className="terminal-label">Location</p>
-                <p className="leading-7 text-terminal-text">{siteMeta.location}</p>
-              </section>
-              <section className="space-y-2">
-                <p className="terminal-label">Current Mode</p>
-                <p className="leading-7 text-terminal-text">Building resilient systems and clean interfaces.</p>
-              </section>
-              <section className="space-y-2">
-                <p className="terminal-label">Stack Bias</p>
-                <ul className="space-y-2 text-terminal-muted">
-                  <li>TypeScript-first delivery</li>
-                  <li>GitHub-centered workflows</li>
-                  <li>Automation over repetition</li>
-                </ul>
-              </section>
+            <div className="hidden items-center gap-4 text-[11px] uppercase tracking-[0.28em] text-terminal-muted sm:flex">
+              <span>{formatDate()}</span>
+              <span>{currentPage.label}</span>
             </div>
-          </aside>
+          </div>
 
-          <main className="min-w-0">{children}</main>
-        </div>
+          <div className="border-b border-terminal-border/70 px-5 py-5 sm:px-6">
+            <div className="grid gap-6 xl:grid-cols-[1.08fr_0.92fr] xl:items-end">
+              <div className="space-y-3">
+                <p className="font-display text-4xl uppercase tracking-[0.18em] text-terminal-text sm:text-5xl">
+                  {siteMeta.name}
+                </p>
+                <p className="max-w-3xl text-sm leading-7 text-terminal-muted sm:text-base">
+                  {siteMeta.title}. Retro terminal cues, but organized like one continuous operator workspace.
+                </p>
+              </div>
+              <div className="space-y-4 xl:text-right">
+                <div className="flex flex-wrap gap-0 border-b border-terminal-border/70 xl:ml-auto xl:w-fit xl:justify-end">
+                  {navItems.map((item) => (
+                    <NavLink
+                      key={item.to}
+                      to={item.to}
+                      className={({ isActive }) =>
+                        isActive ? 'menu-link menu-link-active' : 'menu-link'
+                      }
+                      end={item.to === '/'}
+                    >
+                      {item.label}
+                    </NavLink>
+                  ))}
+                </div>
+                <div className="flex flex-wrap items-center gap-3 text-[11px] uppercase tracking-[0.28em] text-terminal-muted xl:justify-end">
+                  <span className="status-pill">
+                    <span className="status-dot" />
+                    {siteMeta.status}
+                  </span>
+                  <span>{siteMeta.location}</span>
+                </div>
+              </div>
+            </div>
+          </div>
 
-        <footer className="terminal-window">
-          <div className="flex flex-col gap-3 px-4 py-4 text-xs uppercase tracking-[0.26em] text-terminal-muted sm:flex-row sm:items-center sm:justify-between">
+          <div className="grid xl:grid-cols-[280px_minmax(0,1fr)]">
+            <aside className="border-b border-terminal-border/70 px-5 py-5 sm:px-6 xl:border-b-0 xl:border-r">
+              <div className="space-y-6 text-sm">
+                <section className="space-y-2">
+                  <p className="terminal-label">Session</p>
+                  <p className="leading-7 text-terminal-text">{currentPage.summary}</p>
+                </section>
+                <section className="space-y-2">
+                  <p className="terminal-label">Location</p>
+                  <p className="leading-7 text-terminal-text">{siteMeta.location}</p>
+                </section>
+                <section className="space-y-2">
+                  <p className="terminal-label">Current Mode</p>
+                  <p className="leading-7 text-terminal-text">
+                    Building resilient systems and clean interfaces with a practical operator mindset.
+                  </p>
+                </section>
+                <section className="space-y-2">
+                  <p className="terminal-label">Stack Bias</p>
+                  <ul className="space-y-2 leading-7 text-terminal-muted">
+                    <li>TypeScript-first delivery</li>
+                    <li>GitHub-centered workflows</li>
+                    <li>Automation over repetition</li>
+                  </ul>
+                </section>
+              </div>
+            </aside>
+
+            <main className="min-w-0 px-5 py-6 sm:px-6">{children}</main>
+          </div>
+
+          <footer className="flex flex-col gap-3 border-t border-terminal-border/70 px-5 py-4 text-xs uppercase tracking-[0.26em] text-terminal-muted sm:flex-row sm:items-center sm:justify-between sm:px-6">
             <span>{siteMeta.domain}</span>
             <span>Built with React, TypeScript, Tailwind, and GitHub Pages</span>
-          </div>
-        </footer>
+          </footer>
+        </section>
       </div>
     </div>
   );

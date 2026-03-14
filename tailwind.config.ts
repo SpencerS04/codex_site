@@ -6,14 +6,15 @@ export default {
     extend: {
       colors: {
         terminal: {
-          bg: '#05080a',
-          panel: '#09110d',
-          panelAlt: '#0d1811',
-          border: '#1d4d2a',
-          text: '#c5ffc8',
-          muted: '#7db78b',
-          accent: '#2cfb72',
-          amber: '#ffcc66',
+          bg: '#060908',
+          panel: '#0b120f',
+          panelAlt: '#111a15',
+          border: '#30473a',
+          text: '#cddfcf',
+          muted: '#8da993',
+          accent: '#7ee787',
+          amber: '#d8b26a',
+          signal: '#e57373',
         },
       },
       fontFamily: {
@@ -21,7 +22,7 @@ export default {
         display: ['"VT323"', 'monospace'],
       },
       boxShadow: {
-        terminal: '0 0 32px rgba(44, 251, 114, 0.12)',
+        terminal: '0 20px 60px rgba(0, 0, 0, 0.42)',
       },
     },
   },
